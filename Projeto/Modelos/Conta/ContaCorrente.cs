@@ -1,6 +1,6 @@
 namespace Projeto.Modelos.Conta
 {
-	public class ContaCorrente
+	public class ContaCorrente: IComparable<ContaCorrente>
 	{
 		private int _numero_agencia;
 		private string _conta;
@@ -103,10 +103,24 @@ namespace Projeto.Modelos.Conta
 		{
 			return $" === DADOS DA CONTA === \n" +
 				   $"Número da Conta : {this.Conta} \n" +
+				   $"Número da Agência : {this.Numero_agencia} \n" +
 				   $"Titular da Conta: {this.Titular.Nome} \n" +
 				   $"CPF do Titular  : {this.Titular.Cpf} \n" +
-				   $"Profissão do Titular: { this.Titular.Profissao}";
+				   $"Profissão do Titular: { this.Titular.Profissao}\n\n";
 		}
-	}
+
+        public int CompareTo(ContaCorrente? other)
+        {
+            if(other == null)
+			{
+				return 1;
+			}
+			// Compara os objetos pelo número da agência.. Legal!!
+			else
+			{
+				return this.Numero_agencia.CompareTo(other.Numero_agencia);
+			}
+        }
+    }
 
 }
