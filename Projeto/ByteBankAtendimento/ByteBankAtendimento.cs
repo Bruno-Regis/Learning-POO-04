@@ -1,5 +1,6 @@
 ﻿using Projeto.Exceptions;
 using Projeto.Modelos.Conta;
+using System.Xml;
 
 namespace Projeto.ByteBankAtendimento;
 #nullable disable
@@ -11,6 +12,7 @@ internal class ByteBankAtendimento
     new ContaCorrente (032, "123-20"){Saldo=160, Titular =  new Cliente{Cpf ="987654321", Nome= "Bruno"}},
     new ContaCorrente(034, "123-30") {Saldo = 156, Titular = new Cliente {Cpf = "100100100", Nome = "Mariana"}}
 };
+
     public void MenuDeAtendimentoAoCliente()
     {
         char opcao = '0';
@@ -59,8 +61,11 @@ internal class ByteBankAtendimento
                     case '5':
                         PesquisarContas();
                         break;
+                    case '6':
+                        SairDaAplicacao();
+                        break;
                     default:
-                        Console.WriteLine("Opcao não implementada.");
+                        Console.WriteLine("Opção inválida");
                         break;
                 }
             }
@@ -72,6 +77,11 @@ internal class ByteBankAtendimento
 
     }
 
+    private void SairDaAplicacao()
+    {
+        Console.WriteLine("==== Saindo da aplicação ====");
+        Console.ReadKey();
+    }
 
     private void CadastrarConta()
     {
@@ -83,11 +93,8 @@ internal class ByteBankAtendimento
         Console.WriteLine("=== Informe dados da conta ===");
         Console.WriteLine("Número da agência");
         int numeroAgencia = int.Parse(Console.ReadLine());
-
-        Console.Write("Número da conta: ");
-        string numeroConta = Console.ReadLine();
-
-        ContaCorrente conta = new(numeroAgencia, numeroConta);
+        ContaCorrente conta = new(numeroAgencia);
+        Console.WriteLine($"Número da nova conta: {conta.Conta}");
         Console.WriteLine("Informe o nome do titular");
         conta.Titular.Nome = Console.ReadLine();
 
